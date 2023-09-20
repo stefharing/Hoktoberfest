@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="css/control.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+   
+    <!-- ROS -->
+    <script src="build/roslib.js"></script>
+    <script>
+
+        var ros = new ROSLIB.Ros({
+            url : 'ws://localhost:9090'
+        });
+
+        ros.on('connection', function() {
+            console.log('Connected to websocket server.');
+        });
+
+        ros.on('error', function(error) {
+            console.log('Error connecting to websocket server: ', error);
+        });
+
+        ros.on('close', function() {
+            console.log('Connection to websocket server closed.');
+        });
+
+        var spinWheelTopic = new ROSLIB.Topic({
+            ros : ros,
+            name : '/spin_wheel',
+            messageType : 'std_msgs/String'
+        });
+
+        var spinWheelMessage = new ROSLIB.Message({
+            data : 'spin'
+        });
+
+        function spin() {
+            spinWheelTopic.publish(spinWheelMessage);
+        }
+
+    </script>
+</head>
+<body>
+    <h1>CONTROL</h1>
+    <button onclick="spin()">DRAAI</button>
+    
+</body>
+</html>

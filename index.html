@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+        
+    <!-- ROS -->
+    <script src="build/roslib.js"></script>
+    <script>
+
+        var ros = new ROSLIB.Ros({
+            url : 'ws://localhost:9090'
+        });
+
+        ros.on('connection', function() {
+            console.log('Connected to websocket server.');
+        });
+
+        ros.on('error', function(error) {
+            console.log('Error connecting to websocket server: ', error);
+        });
+
+        ros.on('close', function() {
+            console.log('Connection to websocket server closed.');
+        });
+
+        var listener = new ROSLIB.Topic({
+            ros : ros,
+            name : '/spin_wheel',
+            messageType : 'std_msgs/String'
+        });
+
+        listener.subscribe(function(message) {
+            console.log('Received message on ' + listener.name + ': ' + message.data);
+
+            // spin the wheel
+            spin();
+        });
+
+
+    </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="assets/Hoktoberfest_logo.png" alt="">
+    </div>
+    <div class="slotcontainer">
+      <div id="slot1" class="slot1">
+        <div class="symbols1" id="slot1Symbols"></div>
+      </div>
+
+      <div id="slot2" class="slot2">
+        <div class="symbols2" id="slot2Symbols"></div>
+      </div>
+    </div>
+    <div class="slot-image">
+      <img src="assets/slot-vector.svg" alt="">
+    </div>
+    <div class="handle-image">
+      <img src="assets/slot-handle-vector.svg" alt="">
+    </div>
+
+    <div class="buttons" style="display: flex;">
+      <button onclick="spin()">Spin</button>
+      <button onclick="reset();">Reset</button>
+    </div>
+  </div>
+  <div class="background"></div>
+
+  <!-- SLOT -->
+  <script src="js/slot.js"></script>
+
+</body>
+
+</html>

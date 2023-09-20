@@ -1,0 +1,28 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    border: 2px solid #d6d6d6;
+    width: 100px;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    background-color: #f1f1f1;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #e1e1e1;
+}
