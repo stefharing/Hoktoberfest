@@ -9,11 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
         
     <!-- ROS -->
+    <script src="ip.js"></script>
     <script src="build/roslib.js"></script>
     <script>
 
         var ros = new ROSLIB.Ros({
-            url : 'ws://localhost:9090'
+            url : 'ws://' + ip + ':9090'
         });
 
         ros.on('connection', function() {
